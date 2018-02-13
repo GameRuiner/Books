@@ -8,7 +8,7 @@ namespace ConsoleApp1
         public static List<string> books = new List<string>();
         static void Main(string[] args)
         {
-            String cki;
+            String cki,book1,book2;
             Console.WriteLine("Welcome to library");
             do
             {
@@ -27,6 +27,12 @@ namespace ConsoleApp1
                     cki = Console.ReadLine();
                     books = RemoveB(cki);
                 }
+                if (cki == "Edit")
+                {
+                    book1 = Console.ReadLine();
+                    book2 = Console.ReadLine();
+                    books = EditB(book1,book2);
+                }
 
             } while (cki != "Exit");
         }
@@ -40,6 +46,12 @@ namespace ConsoleApp1
             books.Remove(book);
             return books;
 
+        }
+        public static List<string> EditB(string book1, string book2)
+        {
+            books.Remove(book1);
+            books.Add(book2);
+            return books;
         }
     }
 }
