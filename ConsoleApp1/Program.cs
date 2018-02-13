@@ -6,9 +6,11 @@ namespace ConsoleApp1
     class Program
     {
         public static List<string> books = new List<string>();
+        public static List<string> library = new List<string>();
+        public static List<string> users = new List<string>() {"library"};
         static void Main(string[] args)
         {
-            String cki,book1,book2;
+            String cki,book1,book2,user = "library";
             Console.WriteLine("Welcome to library");
             do
             {
@@ -32,6 +34,23 @@ namespace ConsoleApp1
                     book1 = Console.ReadLine();
                     book2 = Console.ReadLine();
                     books = EditB(book1,book2);
+                }
+                if (cki == "Login")
+                {
+                    if (user == "library")
+                    {
+                        library = books;
+                    }
+                    user = Console.ReadLine();
+                    if (users.Contains(user)){
+                         
+                    }
+                    else
+                    {
+
+                        
+                    }
+
                 }
 
             } while (cki != "Exit");
