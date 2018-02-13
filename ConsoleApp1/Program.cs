@@ -17,20 +17,29 @@ namespace ConsoleApp1
                     cki = Console.ReadLine();
                     books = AddB(cki);
                 }
-                if (cki == "My books")
-                {
+                if (cki == "My books"){
                     foreach (var item in books){
                         Console.WriteLine(item);
-                    }
+                                               }
+                }
+                if (cki == "Remove")
+                {
+                    cki = Console.ReadLine();
+                    books = RemoveB(cki);
                 }
 
             } while (cki != "Exit");
-            Console.ReadKey();
         }
         public static List<string> AddB(string book)
         {
             books.Add(book);
             return books;
+        }
+        public static List<string> RemoveB(string book)
+        {
+            books.Remove(book);
+            return books;
+
         }
     }
 }
