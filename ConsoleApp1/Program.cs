@@ -5,71 +5,122 @@ namespace ConsoleApp1
 {
     class Program
     {
-        public static List<string> books = new List<string>();
-        public static List<string> library = new List<string>();
-        public static List<string> users = new List<string>() {"library"};
+        public static List<BookI> books = new List<BookI>();
+        public class BookI
+        {
+            public string title,author;
+            public BookI()
+            {
+                title = "unknown";
+                author = "unknown";
+            }
+            public BookI(string nm, string au)
+            {
+                title = nm;
+                author = au;
+            }
+            public void SetTitle(string newTitle)
+            {
+                title = newTitle;
+            }
+            public void SetAuthor(string newAuthor)
+            {
+                author = newAuthor;
+            }
+        }
+        public class User
+        {
+            public List<string> library;
+        }
         static void Main(string[] args)
         {
-            String cki,book1,book2,user = "library";
-            Console.WriteLine("Welcome to library");
+            String cki,title,author;
+            Console.WriteLine("Welcome to library"+"sss");
             do
             {
                 cki = Console.ReadLine();
-                if (cki == "Add"){
-                    cki = Console.ReadLine();
-                    books = AddB(cki);
+                if (cki == "Add") {
+                    Console.WriteLine("Title:");
+                    title = Console.ReadLine();
+                    Console.WriteLine("Author:");
+                    author = Console.ReadLine();
+                    books = AddB(title,author);
                 }
-                if (cki == "My books"){
-                    foreach (var item in books){
-                        Console.WriteLine(item);
-                                               }
-                }
-                if (cki == "Remove")
-                {
-                    cki = Console.ReadLine();
-                    books = RemoveB(cki);
-                }
-                if (cki == "Edit")
-                {
-                    book1 = Console.ReadLine();
-                    book2 = Console.ReadLine();
-                    books = EditB(book1,book2);
-                }
-                if (cki == "Login")
-                {
-                    if (user == "library")
-                    {
-                        library = books;
-                    }
-                    user = Console.ReadLine();
-                    if (users.Contains(user)){
-                         
-                    }
-                    else
-                    {
 
-                        
+                else if (cki == "My books"){
+                        foreach (var item in books) {
+                            Console.WriteLine("Title: "+item.title+" Author: "+ item.author);
+                        }
                     }
-
+                else if (cki == "Remove")
+                {
+                        title = Console.ReadLine();
+                        books = RemoveB(title);
+                    } 
+                else if (cki == "Edit")
+                {
+                    title = Console.ReadLine();
+                    books = EditB(title);
+                }
+                else if (cki == "Login")
+                {
+                   
                 }
 
             } while (cki != "Exit");
         }
-        public static List<string> AddB(string book)
+        public static List<BookI> AddB(string title, string author)
         {
+            BookI book = new BookI(title, author);
             books.Add(book);
             return books;
         }
-        public static List<string> RemoveB(string book)
+        public static List<BookI> RemoveB(string title)
         {
-            books.Remove(book);
+            foreach (var item in books)
+            {
+                if (item.title == title) {
+                    books.Remove(item);
+                    break;
+                        }
+            }
             return books;
 
         }
-        public static List<string> EditB(string book1, string book2)
+        public static List<BookI> EditB(string title)
         {
-            books.Remove(book1);
-            books.Add(book2);
+            string com,newTitle,newAuthor;
+            foreach (var item in books)
+            {
+                if (item.title == title)
+                {
+                    Console.WriteLine("Change title? Y/N");
+                    com = Console.ReadLine();
+                    while (com!="N" || com!= "Y"){
+                        com = Console.ReadLine();
+                    }
+                    if (com == "Y")
+                    {
+                        Console.WriteLine("New title:");
+                        newTitle = Console.ReadLine();
+                        item.SetTitle(newTitle);
+                    }
+                    Console.WriteLine("Change author? Y/N");
+                    com = Console.ReadLine();
+                    while (com != "N" || com != "Y")
+                    {
+                        com = Console.ReadLine();
+                    }
+                    if (com == "Y")
+                    {
+                        Console.WriteLine("New author:");
+                        newAuthor = Console.ReadLine();
+                        item.SetAuthor(newAuthor);
+                    }
+
+                    break;
+                }
+            }
             return books;
         }
     }
