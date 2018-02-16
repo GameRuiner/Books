@@ -5,7 +5,9 @@ namespace ConsoleApp1
 {
     class Program
     {
-        public static List<BookI> books = new List<BookI>();
+        public static List<BookI> mainLibrary = new List<BookI>();
+        public static List<User> userlist = new List<User>();
+
         public class BookI
         {
             public string title,author;
@@ -30,12 +32,55 @@ namespace ConsoleApp1
         }
         public class User
         {
-            public List<string> library;
+            public List<BookI> library;
+            public string name;
+            public User()
+            {
+                library = new List<BookI>();
+                name = null;
+            }
+            public User(string nm)
+            {
+                library = new List<BookI>();
+                name = nm;
+            }
+            public void Borrow(string book)
+            {
+                foreach (var item in mainLibrary)
+                {
+                    if (item.title == book)
+                    {
+                        library.Add(item);
+                        mainLibrary.Remove(item);
+                        Console.WriteLine("Book " + book + " successfully borrowed ");
+                        return;
+                    }
+                }
+                Console.WriteLine("Library don't contain book " + book);
+            }
+            public void ReturnB(string book)
+            {
+                foreach (var item in library)
+                {
+                    if (item.title == book)
+                    {
+                        mainLibrary.Add(item);
+                        library.Remove(item);
+                        Console.WriteLine("Book " + book + " successfully returned ");
+                        return;
+
+                    }
+                }
+                Console.WriteLine("You don't have " + book);
+            }
+
         }
         static void Main(string[] args)
         {
-            String cki,title,author;
-            Console.WriteLine("Welcome to library"+"sss");
+            String cki,title,author,username;
+            User user;
+            Boolean b;
+            Console.WriteLine("Welcome to library");
             do
             {
                 cki = Console.ReadLine();
@@ -44,27 +89,91 @@ namespace ConsoleApp1
                     title = Console.ReadLine();
                     Console.WriteLine("Author:");
                     author = Console.ReadLine();
-                    books = AddB(title,author);
+                    mainLibrary = AddB(title,author);
                 }
 
-                else if (cki == "My books"){
-                        foreach (var item in books) {
-                            Console.WriteLine("Title: "+item.title+" Author: "+ item.author);
-                        }
+                else if (cki == "Library books"){
+                     BookList(mainLibrary);
                     }
                 else if (cki == "Remove")
                 {
                         title = Console.ReadLine();
-                        books = RemoveB(title);
+                        mainLibrary = RemoveB(title);
                     } 
                 else if (cki == "Edit")
                 {
                     title = Console.ReadLine();
-                    books = EditB(title);
+                    mainLibrary = EditB(title);
+                }
+                else if (cki == "User list")
+                {
+                    foreach (var item in userlist)
+                    {
+                        Console.WriteLine(item.name);
+                    }
                 }
                 else if (cki == "Login")
                 {
+                    Console.WriteLine("Your login:");
+                    b = true;
+                    username = Console.ReadLine();
+                    user = new User(username);
+                    foreach (var item in userlist)
+                    {
+                        if(item.name == username)
+                        {
+                            user = item;
+                            b = false;
+                            Console.WriteLine("Welcome back " + user.name);
+                        }
+                    }
+                    if (b)
+                    {
+                        Console.WriteLine("Welcome new user " + user.name);
+                        userlist.Add(user);
+                    }
+                    while (true)
+                    {
+                        cki = Console.ReadLine();
+                        if (cki == "Logout")
+                        {
+                            Console.WriteLine("Goodbye "+ user.name);
+                            break;
+                        }
+                        switch (cki)
+                        {
+                            case "Borrow":
+                                BookList(mainLibrary);
+                                Console.WriteLine("Please, enter title of book");
+                                title = Console.ReadLine();
+                                user.Borrow(title);
+                                break;
+                            case "Return":
+                                BookList(user.library);
+                                Console.WriteLine("Please, enter title of book");
+                                title = Console.ReadLine();
+                                user.ReturnB(title);
+                                break;
+                            case "My books":
+                                BookList(user.library);
+                                break;
+                            case "Library":
+                                BookList(mainLibrary);
+                                break;
+                            case "User name":
+                                Console.WriteLine(user.name);
+                                break;
+                            default:
+                                Console.WriteLine("Unknown user command");
+                                break;
+                        }
+
+                    } 
                    
+                }
+                else
+                {
+                    Console.WriteLine("Unknown command");
                 }
 
             } while (cki != "Exit");
@@ -72,25 +181,25 @@ namespace ConsoleApp1
         public static List<BookI> AddB(string title, string author)
         {
             BookI book = new BookI(title, author);
-            books.Add(book);
-            return books;
+            mainLibrary.Add(book);
+            return mainLibrary;
         }
         public static List<BookI> RemoveB(string title)
         {
-            foreach (var item in books)
+            foreach (var item in mainLibrary)
             {
                 if (item.title == title) {
-                    books.Remove(item);
+                    mainLibrary.Remove(item);
                     break;
                         }
             }
-            return books;
+            return mainLibrary;
 
         }
         public static List<BookI> EditB(string title)
         {
             string com,newTitle,newAuthor;
-            foreach (var item in books)
+            foreach (var item in mainLibrary)
             {
                 if (item.title == title)
                 {
@@ -121,7 +230,14 @@ namespace ConsoleApp1
                     break;
                 }
             }
-            return books;
+            return mainLibrary;
+        }
+        public static void BookList(List<BookI> booklist)
+        {
+            foreach (var item in booklist)
+            {
+                Console.WriteLine("Title: " + item.title + " Author: " + item.author);
+            }
         }
     }
 }
