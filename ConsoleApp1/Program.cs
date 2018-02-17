@@ -12,6 +12,7 @@ namespace ConsoleApp1
         {
             String cki,title,author,username;
             User user;
+            UserService uservice;
             var service = new BookService();
             bool b;
             Console.WriteLine("Welcome to library");
@@ -70,6 +71,7 @@ namespace ConsoleApp1
                         Console.WriteLine("Welcome new user " + user.Name);
                         userlist.Add(user);
                     }
+                    uservice = new UserService(user);
                     while (true)
                     {
                         cki = Console.ReadLine();
@@ -84,13 +86,13 @@ namespace ConsoleApp1
                                 service.BookList(mainLibrary);
                                 Console.WriteLine("Please, enter title of book");
                                 title = Console.ReadLine();
-                                user.Borrow(title);
+                                uservice.Borrow(title);
                                 break;
                             case "Return":
                                 service.BookList(user.Library);
                                 Console.WriteLine("Please, enter title of book");
                                 title = Console.ReadLine();
-                                user.ReturnB(title);
+                                uservice.ReturnB(title);
                                 break;
                             case "My books":
                                 service.BookList(user.Library);
