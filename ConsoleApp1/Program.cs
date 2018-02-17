@@ -10,47 +10,30 @@ namespace ConsoleApp1
 
         public class BookI
         {
-            public string title,author;
-            public BookI()
-            {
-                title = "unknown";
-                author = "unknown";
-            }
+            public string Title{ get; set; }
+            public string Author { get; set; }
             public BookI(string nm, string au)
             {
-                title = nm;
-                author = au;
-            }
-            public void SetTitle(string newTitle)
-            {
-                title = newTitle;
-            }
-            public void SetAuthor(string newAuthor)
-            {
-                author = newAuthor;
+                Title = nm;
+                Author = au;
             }
         }
         public class User
         {
-            public List<BookI> library;
-            public string name;
-            public User()
-            {
-                library = new List<BookI>();
-                name = null;
-            }
+            public List<BookI> Library { get;}
+            public string Name { get;}
             public User(string nm)
             {
-                library = new List<BookI>();
-                name = nm;
+                Library = new List<BookI>();
+                Name = nm;
             }
             public void Borrow(string book)
             {
                 foreach (var item in mainLibrary)
                 {
-                    if (item.title == book)
+                    if (item.Title == book)
                     {
-                        library.Add(item);
+                        Library.Add(item);
                         mainLibrary.Remove(item);
                         Console.WriteLine("Book " + book + " successfully borrowed ");
                         return;
@@ -60,12 +43,12 @@ namespace ConsoleApp1
             }
             public void ReturnB(string book)
             {
-                foreach (var item in library)
+                foreach (var item in Library)
                 {
-                    if (item.title == book)
+                    if (item.Title == book)
                     {
                         mainLibrary.Add(item);
-                        library.Remove(item);
+                        Library.Remove(item);
                         Console.WriteLine("Book " + book + " successfully returned ");
                         return;
 
@@ -79,7 +62,7 @@ namespace ConsoleApp1
         {
             String cki,title,author,username;
             User user;
-            Boolean b;
+            bool b;
             Console.WriteLine("Welcome to library");
             do
             {
@@ -102,6 +85,8 @@ namespace ConsoleApp1
                     } 
                 else if (cki == "Edit")
                 {
+                    BookList(mainLibrary);
+                    Console.WriteLine("Please choose title");
                     title = Console.ReadLine();
                     mainLibrary = EditB(title);
                 }
@@ -109,7 +94,7 @@ namespace ConsoleApp1
                 {
                     foreach (var item in userlist)
                     {
-                        Console.WriteLine(item.name);
+                        Console.WriteLine(item.Name);
                     }
                 }
                 else if (cki == "Login")
@@ -120,16 +105,17 @@ namespace ConsoleApp1
                     user = new User(username);
                     foreach (var item in userlist)
                     {
-                        if(item.name == username)
+                        if(item.Name == username)
                         {
                             user = item;
                             b = false;
-                            Console.WriteLine("Welcome back " + user.name);
+                            Console.WriteLine("Welcome back " + user.Name);
+                            break;
                         }
                     }
                     if (b)
                     {
-                        Console.WriteLine("Welcome new user " + user.name);
+                        Console.WriteLine("Welcome new user " + user.Name);
                         userlist.Add(user);
                     }
                     while (true)
@@ -137,7 +123,7 @@ namespace ConsoleApp1
                         cki = Console.ReadLine();
                         if (cki == "Logout")
                         {
-                            Console.WriteLine("Goodbye "+ user.name);
+                            Console.WriteLine("Goodbye "+ user.Name);
                             break;
                         }
                         switch (cki)
@@ -149,19 +135,19 @@ namespace ConsoleApp1
                                 user.Borrow(title);
                                 break;
                             case "Return":
-                                BookList(user.library);
+                                BookList(user.Library);
                                 Console.WriteLine("Please, enter title of book");
                                 title = Console.ReadLine();
                                 user.ReturnB(title);
                                 break;
                             case "My books":
-                                BookList(user.library);
+                                BookList(user.Library);
                                 break;
                             case "Library":
                                 BookList(mainLibrary);
                                 break;
                             case "User name":
-                                Console.WriteLine(user.name);
+                                Console.WriteLine(user.Name);
                                 break;
                             default:
                                 Console.WriteLine("Unknown user command");
@@ -188,7 +174,7 @@ namespace ConsoleApp1
         {
             foreach (var item in mainLibrary)
             {
-                if (item.title == title) {
+                if (item.Title == title) {
                     mainLibrary.Remove(item);
                     break;
                         }
@@ -201,22 +187,23 @@ namespace ConsoleApp1
             string com,newTitle,newAuthor;
             foreach (var item in mainLibrary)
             {
-                if (item.title == title)
+                if (item.Title == title)
                 {
                     Console.WriteLine("Change title? Y/N");
                     com = Console.ReadLine();
-                    while (com!="N" || com!= "Y"){
+                    while (com!="N" && com!= "Y"){
                         com = Console.ReadLine();
+                        Console.WriteLine(com);
                     }
                     if (com == "Y")
                     {
                         Console.WriteLine("New title:");
                         newTitle = Console.ReadLine();
-                        item.SetTitle(newTitle);
+                        item.Title= newTitle;
                     }
                     Console.WriteLine("Change author? Y/N");
                     com = Console.ReadLine();
-                    while (com != "N" || com != "Y")
+                    while (com != "N" && com != "Y")
                     {
                         com = Console.ReadLine();
                     }
@@ -224,7 +211,7 @@ namespace ConsoleApp1
                     {
                         Console.WriteLine("New author:");
                         newAuthor = Console.ReadLine();
-                        item.SetAuthor(newAuthor);
+                        item.Author = newAuthor;
                     }
 
                     break;
@@ -236,7 +223,7 @@ namespace ConsoleApp1
         {
             foreach (var item in booklist)
             {
-                Console.WriteLine("Title: " + item.title + " Author: " + item.author);
+                Console.WriteLine("Title: " + item.Title + " Author: " + item.Author);
             }
         }
     }
