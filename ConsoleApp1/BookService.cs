@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace ConsoleApp1
 {
@@ -14,13 +15,16 @@ namespace ConsoleApp1
         }
         public List<BookI> RemoveB(string title)
         {
-            foreach (var item in Program.mainLibrary)
+            BookI rBook;
+            var selectedbooks = from b in Program.mainLibrary where b.Title == title select b;
+            if (selectedbooks.Count() > 0)
             {
-                if (item.Title == title)
-                {
-                    Program.mainLibrary.Remove(item);
-                    break;
-                }
+                rBook = selectedbooks.First();
+                Program.mainLibrary.Remove(rBook);
+            }
+            else
+            {
+                Console.WriteLine("Library doesn't have book " + title);
             }
             return Program.mainLibrary;
 
@@ -28,11 +32,12 @@ namespace ConsoleApp1
         public List<BookI> EditB(string title)
         {
             string com, newTitle, newAuthor;
-            foreach (var item in Program.mainLibrary)
-            {
-                if (item.Title == title)
+            BookI eBook;
+            var selectedbooks = from b in Program.mainLibrary where b.Title == title select b;
+                if (selectedbooks.Count()>0)
                 {
-                    Console.WriteLine("Change title? Y/N");
+                eBook = selectedbooks.First();
+                Console.WriteLine("Change title? Y/N");
                     com = Console.ReadLine();
                     while (com != "N" && com != "Y")
                     {
@@ -43,7 +48,7 @@ namespace ConsoleApp1
                     {
                         Console.WriteLine("New title:");
                         newTitle = Console.ReadLine();
-                        item.Title = newTitle;
+                        eBook.Title = newTitle;
                     }
                     Console.WriteLine("Change author? Y/N");
                     com = Console.ReadLine();
@@ -55,11 +60,13 @@ namespace ConsoleApp1
                     {
                         Console.WriteLine("New author:");
                         newAuthor = Console.ReadLine();
-                        item.Author = newAuthor;
+                        eBook.Author = newAuthor;
                     }
 
-                    break;
                 }
+            else
+            {
+                Console.WriteLine("Library doesn't have book "+ title);
             }
             return Program.mainLibrary;
         }

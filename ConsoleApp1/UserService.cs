@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace ConsoleApp1
 {
@@ -8,6 +9,7 @@ namespace ConsoleApp1
     class UserService
     {
         public List<BookI> Library = new List<BookI>();
+        BookI bBook;
         public UserService(User user)
         {
           Library = user.Library;
@@ -15,32 +17,36 @@ namespace ConsoleApp1
         }
         public void Borrow(string book)
         {
-            foreach (var item in Program.mainLibrary)
+            
+            var selectedbooks = from b in Program.mainLibrary where (b.Title == book) select b;
+            if (selectedbooks.Count() > 0)
             {
-                if (item.Title == book)
-                {
-                    Library.Add(item);
-                    Program.mainLibrary.Remove(item);
-                    Console.WriteLine("Book " + book + " successfully borrowed ");
-                    return;
-                }
+                bBook = selectedbooks.First();
+                Library.Add(bBook);
+                Program.mainLibrary.Remove(bBook);
+                Console.WriteLine("Book " + book + " successfully borrowed ");
             }
-            Console.WriteLine("Library don't contain book " + book);
+            else
+            {
+                Console.WriteLine("Library don't contain book " + book);
+            }
+            
         }
         public void ReturnB(string book)
         {
-            foreach (var item in Library)
+            var selectedbooks = from b in Library where (b.Title == book) select b;
+            if (selectedbooks.Count() > 0)
             {
-                if (item.Title == book)
-                {
-                    Program.mainLibrary.Add(item);
-                    Library.Remove(item);
-                    Console.WriteLine("Book " + book + " successfully returned ");
-                    return;
-
-                }
+                bBook = selectedbooks.First();
+                Program.mainLibrary.Add(bBook);
+                Library.Remove(bBook);
+                Console.WriteLine("Book " + book + " successfully returned ");
             }
-            Console.WriteLine("You don't have " + book);
+            else
+            {
+                Console.WriteLine("You don't have " + book);
+            }
+           
         }
     }
 }

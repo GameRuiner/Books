@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ConsoleApp1
 {
@@ -14,7 +15,7 @@ namespace ConsoleApp1
             User user;
             UserService uservice;
             var service = new BookService();
-            bool b;
+
             Console.WriteLine("Welcome to library");
             do
             {
@@ -53,20 +54,15 @@ namespace ConsoleApp1
                 else if (cki == "Login")
                 {
                     Console.WriteLine("Your login:");
-                    b = true;
                     username = Console.ReadLine();
                     user = new User(username);
-                    foreach (var item in userlist)
+                    var selecteduser =  from u in userlist where (u.Name==username) select u;
+                    if (selecteduser.Count() > 0)
                     {
-                        if(item.Name == username)
-                        {
-                            user = item;
-                            b = false;
-                            Console.WriteLine("Welcome back " + user.Name);
-                            break;
-                        }
+                        user = selecteduser.First();
+                        Console.WriteLine("Welcome back " + user.Name);
                     }
-                    if (b)
+                    else
                     {
                         Console.WriteLine("Welcome new user " + user.Name);
                         userlist.Add(user);
