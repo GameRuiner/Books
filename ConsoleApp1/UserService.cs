@@ -6,9 +6,8 @@ using System.Linq;
 namespace ConsoleApp1
 {
     
-    class UserService
+    class UserService : IUserService
     {
-        //public List<BookI> Library = new List<BookI>();
         BookI bBook;
         User users;
         public UserService(User user)
@@ -23,7 +22,6 @@ namespace ConsoleApp1
             if (selectedbooks.Count() > 0)
             {
                 bBook = selectedbooks.First();
-                //Library.Add(bBook);
                 Database.AddBorrow(users, bBook);
                 Database.mainLibrary.Remove(bBook);
                 Console.WriteLine("Book " + book + " successfully borrowed ");
@@ -41,7 +39,6 @@ namespace ConsoleApp1
             {
                 bBook = selectedbooks.First().Book;
                 Database.mainLibrary.Add(bBook);
-                //Library.Remove(bBook);
                 Database.ReturnBorrow(users, bBook);
                 Console.WriteLine("Book " + book + " successfully returned ");
             }

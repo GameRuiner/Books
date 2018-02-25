@@ -12,6 +12,8 @@ namespace ConsoleApp1
             User user;
             UserService uservice;
             var service = new BookService();
+            user = new User("root");
+            var userservice = new UserService(user);
 
             Console.WriteLine("Welcome to library");
             do
