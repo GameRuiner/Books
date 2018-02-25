@@ -8,22 +8,24 @@ namespace ConsoleApp1
     
     class UserService
     {
-        public List<BookI> Library = new List<BookI>();
+        //public List<BookI> Library = new List<BookI>();
         BookI bBook;
+        User users;
         public UserService(User user)
         {
-          Library = user.Library;
+            users = user;
 
         }
         public void Borrow(string book)
         {
             
-            var selectedbooks = from b in Program.mainLibrary where (b.Title == book) select b;
+            var selectedbooks = from b in Database.mainLibrary where (b.Title == book) select b;
             if (selectedbooks.Count() > 0)
             {
                 bBook = selectedbooks.First();
-                Library.Add(bBook);
-                Program.mainLibrary.Remove(bBook);
+                //Library.Add(bBook);
+                Database.AddBorrow(users, bBook);
+                Database.mainLibrary.Remove(bBook);
                 Console.WriteLine("Book " + book + " successfully borrowed ");
             }
             else
@@ -34,12 +36,13 @@ namespace ConsoleApp1
         }
         public void ReturnB(string book)
         {
-            var selectedbooks = from b in Library where (b.Title == book) select b;
+            var selectedbooks = from b in Database.BorrowingList where (b.Book.Title == book && b.User == users) select b;
             if (selectedbooks.Count() > 0)
             {
-                bBook = selectedbooks.First();
-                Program.mainLibrary.Add(bBook);
-                Library.Remove(bBook);
+                bBook = selectedbooks.First().Book;
+                Database.mainLibrary.Add(bBook);
+                //Library.Remove(bBook);
+                Database.ReturnBorrow(users, bBook);
                 Console.WriteLine("Book " + book + " successfully returned ");
             }
             else

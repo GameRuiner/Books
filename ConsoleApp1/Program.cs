@@ -6,9 +6,6 @@ namespace ConsoleApp1
 {
     class Program
     {
-        public static List<BookI> mainLibrary = new List<BookI>();
-        public static List<User> userlist = new List<User>();
-      
         static void Main(string[] args)
         {
             String cki,title,author,username;
@@ -25,28 +22,37 @@ namespace ConsoleApp1
                     title = Console.ReadLine();
                     Console.WriteLine("Author:");
                     author = Console.ReadLine();
-                    mainLibrary = service.AddB(title,author);
+                    Database.mainLibrary = service.AddB(title,author);
                 }
 
                 else if (cki == "Library books"){
-                    service.BookList(mainLibrary);
+                    foreach(var item in Database.mainLibrary)
+                    {
+                        Console.WriteLine("Title: "+item.Title+" Author: "+item.Author);
+                    }
                     }
                 else if (cki == "Remove"){
-                    service.BookList(mainLibrary);
+                    foreach (var item in Database.mainLibrary)
+                    {
+                        Console.WriteLine("Title: " + item.Title+" Author: " + item.Author);
+                    }
                     Console.WriteLine("Please choose title");
                     title = Console.ReadLine();
-                    mainLibrary = service.RemoveB(title);
+                    Database.mainLibrary = service.RemoveB(title);
                     } 
                 else if (cki == "Edit")
                 {
-                    service.BookList(mainLibrary);
+                    foreach (var item in Database.mainLibrary)
+                    {
+                        Console.WriteLine("Title: " + item.Title + " Author: " + item.Author);
+                    }
                     Console.WriteLine("Please choose title");
                     title = Console.ReadLine();
-                    mainLibrary = service.EditB(title);
+                    Database.mainLibrary = service.EditB(title);
                 }
                 else if (cki == "User list")
                 {
-                    foreach (var item in userlist)
+                    foreach (var item in Database.userlist)
                     {
                         Console.WriteLine(item.Name);
                     }
@@ -56,7 +62,7 @@ namespace ConsoleApp1
                     Console.WriteLine("Your login:");
                     username = Console.ReadLine();
                     user = new User(username);
-                    var selecteduser =  from u in userlist where (u.Name==username) select u;
+                    var selecteduser =  from u in Database.userlist where (u.Name==username) select u;
                     if (selecteduser.Count() > 0)
                     {
                         user = selecteduser.First();
@@ -65,7 +71,7 @@ namespace ConsoleApp1
                     else
                     {
                         Console.WriteLine("Welcome new user " + user.Name);
-                        userlist.Add(user);
+                        Database.userlist.Add(user);
                     }
                     uservice = new UserService(user);
                     while (true)
@@ -79,22 +85,28 @@ namespace ConsoleApp1
                         switch (cki)
                         {
                             case "Borrow":
-                                service.BookList(mainLibrary);
+                                foreach (var item in Database.mainLibrary)
+                                {
+                                    Console.WriteLine("Title: " + item.Title + " Author: " + item.Author);
+                                }
                                 Console.WriteLine("Please, enter title of book");
                                 title = Console.ReadLine();
                                 uservice.Borrow(title);
                                 break;
                             case "Return":
-                                service.BookList(user.Library);
+                                service.BookList(user);
                                 Console.WriteLine("Please, enter title of book");
                                 title = Console.ReadLine();
                                 uservice.ReturnB(title);
                                 break;
                             case "My books":
-                                service.BookList(user.Library);
+                                service.BookList(user);
                                 break;
                             case "Library":
-                                service.BookList(mainLibrary);
+                                foreach (var item in Database.mainLibrary)
+                                {
+                                    Console.WriteLine("Title: " + item.Title + " Author: " + item.Author);
+                                }
                                 break;
                             case "User name":
                                 Console.WriteLine(user.Name);
