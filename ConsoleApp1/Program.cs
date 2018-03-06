@@ -93,13 +93,13 @@ namespace ConsoleApp1
                                 }
                                 Console.WriteLine("Please, enter title of book");
                                 title = Console.ReadLine();
-                                uservice.Borrow(title);
+                                uservice.Borrow(title,user);
                                 break;
                             case "Return":
                                 service.BookList(user);
                                 Console.WriteLine("Please, enter title of book");
                                 title = Console.ReadLine();
-                                uservice.ReturnB(title);
+                                uservice.ReturnB(title,user);
                                 break;
                             case "My books":
                                 service.BookList(user);
@@ -112,6 +112,25 @@ namespace ConsoleApp1
                                 break;
                             case "User name":
                                 Console.WriteLine(user.Name);
+                                break;
+                            case "Borrowing":
+                                foreach (var item in Database.BorrowingList)
+                                {
+                                    if (item.User == user)
+                                    {
+                                        Console.WriteLine("Title: " + item.Book.Title + " Author: " + item.Book.Author);
+                                        if (item.RTime == default(DateTime))
+                                        {
+                                            Console.WriteLine("Borrowing date: " + item.BTime + " Return date: --");
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Borrowing date: " + item.BTime + " Return date: " + item.RTime);
+                                        }
+
+                                    }
+
+                                }
                                 break;
                             default:
                                 Console.WriteLine("Unknown user command");

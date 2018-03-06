@@ -6,8 +6,8 @@ namespace ConsoleApp1
 {
     interface IUserService
     {
-        void Borrow(string book);
+        void Borrow(string book, User user);
 
-        void ReturnB(string book);
+        void ReturnB(string book, User user);
     }
 }
