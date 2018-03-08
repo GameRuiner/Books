@@ -6,11 +6,11 @@ namespace ConsoleApp1
 {
     interface IBookService
     {
-        List<BookI> AddB(string title, string author);
+        void AddB(string title, string author);
 
-        List<BookI> RemoveB(string title);
+        void RemoveB(string title);
 
-        List<BookI> EditB(string title);
+        void EditB(string title);
 
         void BookList(User user);
     }

@@ -10,7 +10,7 @@ namespace ConsoleApp1
 {
     class Database
     {
-        public static List<BookI> mainLibrary = new List<BookI>();
+        public static Dictionary<BookI, bool> mainLibrary = new Dictionary<BookI, bool>();
         public static List<User> userlist = new List<User>();
         public static List<Borrowing> BorrowingList = new List<Borrowing>();
 

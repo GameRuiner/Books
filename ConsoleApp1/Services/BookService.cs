@@ -7,36 +7,35 @@ namespace ConsoleApp1
 {
     class BookService : IBookService
     {
-        public  List<BookI> AddB(string title, string author)
+        public void AddB(string title, string author)
         {
             BookI book = new BookI(title, author);
-            Database.mainLibrary.Add(book);
-            return Database.mainLibrary;
+            Database.mainLibrary.Add(book,false);
+            
         }
-        public List<BookI> RemoveB(string title)
+        public void RemoveB(string title)
         {
             BookI rBook;
-            var selectedbooks = from b in Database.mainLibrary where b.Title == title select b;
+            var selectedbooks = from b in Database.mainLibrary where b.Key.Title == title  select b;
             if (selectedbooks.Count() > 0)
             {
-                rBook = selectedbooks.First();
+                rBook = selectedbooks.First().Key;
                 Database.mainLibrary.Remove(rBook);
             }
             else
             {
                 Console.WriteLine("Library doesn't have book " + title);
             }
-            return Database.mainLibrary;
 
         }
-        public List<BookI> EditB(string title)
+        public void EditB(string title)
         {
             string com, newTitle, newAuthor;
             BookI eBook;
-            var selectedbooks = from b in Database.mainLibrary where b.Title == title select b;
+            var selectedbooks = from b in Database.mainLibrary where b.Key.Title == title select b;
                 if (selectedbooks.Count()>0)
                 {
-                eBook = selectedbooks.First();
+                eBook = selectedbooks.First().Key;
                 Console.WriteLine("Change title? Y/N");
                     com = Console.ReadLine();
                     while (com != "N" && com != "Y")
@@ -68,7 +67,6 @@ namespace ConsoleApp1
             {
                 Console.WriteLine("Library doesn't have book "+ title);
             }
-            return Database.mainLibrary;
         }
         public  void BookList(User user)
         {

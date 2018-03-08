@@ -24,33 +24,42 @@ namespace ConsoleApp1
                     title = Console.ReadLine();
                     Console.WriteLine("Author:");
                     author = Console.ReadLine();
-                    Database.mainLibrary = service.AddB(title,author);
+                    service.AddB(title,author);
                 }
 
                 else if (cki == "Library books"){
                     foreach(var item in Database.mainLibrary)
                     {
-                        Console.WriteLine("Title: "+item.Title+" Author: "+item.Author);
+                        string IsBorrow;
+                        if (item.Value == false)
+                        {
+                            IsBorrow = "Available";
+                        }
+                        else
+                        {
+                            IsBorrow = "Borrowed";
+                        }
+                        Console.WriteLine("Title: "+item.Key.Title+" Author: "+item.Key.Author+" "+IsBorrow);
                     }
                     }
                 else if (cki == "Remove"){
                     foreach (var item in Database.mainLibrary)
                     {
-                        Console.WriteLine("Title: " + item.Title+" Author: " + item.Author);
+                        Console.WriteLine("Title: " + item.Key.Title + " Author: " + item.Key.Author);
                     }
                     Console.WriteLine("Please choose title");
                     title = Console.ReadLine();
-                    Database.mainLibrary = service.RemoveB(title);
+                    service.RemoveB(title);
                     } 
                 else if (cki == "Edit")
                 {
                     foreach (var item in Database.mainLibrary)
                     {
-                        Console.WriteLine("Title: " + item.Title + " Author: " + item.Author);
+                        Console.WriteLine("Title: " + item.Key.Title + " Author: " + item.Key.Author);
                     }
                     Console.WriteLine("Please choose title");
                     title = Console.ReadLine();
-                    Database.mainLibrary = service.EditB(title);
+                    service.EditB(title);
                 }
                 else if (cki == "User list")
                 {
@@ -89,7 +98,10 @@ namespace ConsoleApp1
                             case "Borrow":
                                 foreach (var item in Database.mainLibrary)
                                 {
-                                    Console.WriteLine("Title: " + item.Title + " Author: " + item.Author);
+                                    if (item.Value == false)
+                                    {
+                                        Console.WriteLine("Title: " + item.Key.Title + " Author: " + item.Key.Author);
+                                    }
                                 }
                                 Console.WriteLine("Please, enter title of book");
                                 title = Console.ReadLine();
@@ -107,7 +119,16 @@ namespace ConsoleApp1
                             case "Library":
                                 foreach (var item in Database.mainLibrary)
                                 {
-                                    Console.WriteLine("Title: " + item.Title + " Author: " + item.Author);
+                                    string IsBorrow;
+                                    if (item.Value == false)
+                                    {
+                                        IsBorrow = "Available";
+                                    }
+                                    else
+                                    {
+                                        IsBorrow = "Borrowed";
+                                    }
+                                    Console.WriteLine("Title: " + item.Key.Title + " Author: " + item.Key.Author + " " + IsBorrow);
                                 }
                                 break;
                             case "User name":
