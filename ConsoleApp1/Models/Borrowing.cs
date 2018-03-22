@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Globalization;
+using System.Data.Entity;
 
 namespace ConsoleApp1
 {
-    class Borrowing
+    class Borrowing //: DbContext
     {
         public User User { get; set; }
         public BookI Book { get; set; }

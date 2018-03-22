@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Data.Entity;
 
 namespace ConsoleApp1
 {
-    class BookI
+    class BookI //: DbContext
     {
         public string Title { get; set; }
         public string Author { get; set; }

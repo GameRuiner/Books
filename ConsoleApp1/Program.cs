@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Entity;
 
 namespace ConsoleApp1
 {
@@ -8,12 +9,13 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
+           // string connectionString = "Server = localhost; Database = master; Trusted_Connection = True";
+            //var context = new DbContext(connectionString);
+            //context.Database.Initialize(true);
             String cki,title,author,username;
             User user;
-            UserService uservice;
+            UserService userservice = new UserService();
             var service = new BookService();
-            user = new User("root");
-            var userservice = new UserService(user);
 
             Console.WriteLine("Welcome to library");
             do
@@ -74,9 +76,9 @@ namespace ConsoleApp1
                     username = Console.ReadLine();
                     user = new User(username);
                     var selecteduser =  from u in Database.userlist where (u.Name==username) select u;
-                    if (selecteduser.Count() > 0)
+                    User users = selecteduser.FirstOrDefault();
+                    if (users!=null)
                     {
-                        user = selecteduser.First();
                         Console.WriteLine("Welcome back " + user.Name);
                     }
                     else
@@ -84,7 +86,6 @@ namespace ConsoleApp1
                         Console.WriteLine("Welcome new user " + user.Name);
                         Database.userlist.Add(user);
                     }
-                    uservice = new UserService(user);
                     while (true)
                     {
                         cki = Console.ReadLine();
@@ -105,13 +106,13 @@ namespace ConsoleApp1
                                 }
                                 Console.WriteLine("Please, enter title of book");
                                 title = Console.ReadLine();
-                                uservice.Borrow(title,user);
+                                userservice.Borrow(title,user);
                                 break;
                             case "Return":
                                 service.BookList(user);
                                 Console.WriteLine("Please, enter title of book");
                                 title = Console.ReadLine();
-                                uservice.ReturnB(title,user);
+                                userservice.ReturnB(title,user);
                                 break;
                             case "My books":
                                 service.BookList(user);

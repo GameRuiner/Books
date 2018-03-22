@@ -17,9 +17,9 @@ namespace ConsoleApp1
         {
             BookI rBook;
             var selectedbooks = from b in Database.mainLibrary where b.Key.Title == title  select b;
-            if (selectedbooks.Count() > 0)
+            rBook = selectedbooks.FirstOrDefault().Key;
+            if (rBook!=null)
             {
-                rBook = selectedbooks.First().Key;
                 Database.mainLibrary.Remove(rBook);
             }
             else
@@ -33,9 +33,9 @@ namespace ConsoleApp1
             string com, newTitle, newAuthor;
             BookI eBook;
             var selectedbooks = from b in Database.mainLibrary where b.Key.Title == title select b;
-                if (selectedbooks.Count()>0)
+            eBook = selectedbooks.FirstOrDefault().Key;
+                if (eBook!=null)
                 {
-                eBook = selectedbooks.First().Key;
                 Console.WriteLine("Change title? Y/N");
                     com = Console.ReadLine();
                     while (com != "N" && com != "Y")
