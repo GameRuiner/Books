@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace ConsoleApp1
 {
-    class BookService : IBookService
+    public class BookService : IBookService
     {
         public void AddB(string title, string author)
         {

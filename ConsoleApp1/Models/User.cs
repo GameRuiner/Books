@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
-using System.Data.Entity;
 
 namespace ConsoleApp1
 {
-    class User //: DbContext
+    public class User //: DbContext
     {
+        [Key]
+        public int id { get; set; }
         public string Name { get; }
         public User(string nm)
         {

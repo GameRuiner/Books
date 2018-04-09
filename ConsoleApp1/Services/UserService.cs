@@ -8,10 +8,11 @@ namespace ConsoleApp1
     
     class UserService : IUserService
     {
+        private Context _context;
 
         public UserService()
         {
-
+            _context = new Context();
         }
 
         public void Borrow(string book, User user)

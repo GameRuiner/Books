@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
-using System.Data.Entity;
 
 namespace ConsoleApp1
 {
-    class BookI //: DbContext
+    public class BookI //: DbContext
     {
+        [Key]
+        public int id { get; set; } 
         public string Title { get; set; }
         public string Author { get; set; }
         public BookI(string nm, string au)
