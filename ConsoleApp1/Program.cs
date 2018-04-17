@@ -8,7 +8,7 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-           // string connectionString = "Server = localhost; Database = master; Trusted_Connection = True";
+            // string connectionString = "Server = localhost; Database = master; Trusted_Connection = True";
             //var context = new DbContext(connectionString);
             //context.Database.Initialize(true);
             String cki,title,author,username;

@@ -6,7 +6,7 @@ using System.Linq;
 namespace ConsoleApp1
 {
     
-    class UserService : IUserService
+    public class UserService : IUserService
     {
         private Context _context;
 
