@@ -20,9 +20,9 @@ namespace WebApplication1.Controllers
         }
         // GET: api/User
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<User> Get()
         {
-            return Database.userlist.Select(ulist => ulist.Name);
+            return Database.userlist;
         }
 
         // GET: api/User/5
@@ -43,6 +43,9 @@ namespace WebApplication1.Controllers
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]string value)
         {
+            User u = new ConsoleApp1.User(value);
+            u.id = id;
+            Database.userlist.Add(u);
         }
         
         // DELETE: api/ApiWithActions/5
