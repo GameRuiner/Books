@@ -7,6 +7,13 @@ namespace ConsoleApp1
 {
     public class BookService : IBookService
     {
+        private Context _context;
+
+        public BookService()
+        {
+            _context = new Context();
+        }
+
         public void AddB(string title, string author)
         {
             BookI book = new BookI(title, author);
