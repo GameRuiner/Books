@@ -9,9 +9,10 @@ using System;
 namespace ConsoleApp1.Migrations
 {
     [DbContext(typeof(_context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20180519083854_books")]
+    partial class books
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

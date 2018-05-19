@@ -7,27 +7,27 @@ namespace ConsoleApp1
 {
     public class BookService : IBookService
     {
-        private Context _context;
+        private _context _context;
 
         public BookService()
         {
-            _context = new Context();
+            _context = new _context();
         }
 
         public void AddB(string title, string author)
         {
             BookI book = new BookI(title, author);
-            Database.mainLibrary.Add(book,false);
+            _context.Books.Add(book);
             
         }
         public void RemoveB(string title)
         {
             BookI rBook;
-            var selectedbooks = from b in Database.mainLibrary where b.Key.Title == title  select b;
-            rBook = selectedbooks.FirstOrDefault().Key;
+            var selectedbooks = from b in _context.Books where b.Title == title  select b;
+            rBook = selectedbooks.FirstOrDefault();
             if (rBook!=null)
             {
-                Database.mainLibrary.Remove(rBook);
+                _context.Books.Remove(rBook);
             }
             else
             {
@@ -39,8 +39,8 @@ namespace ConsoleApp1
         {
             string com, newTitle, newAuthor;
             BookI eBook;
-            var selectedbooks = from b in Database.mainLibrary where b.Key.Title == title select b;
-            eBook = selectedbooks.FirstOrDefault().Key;
+            var selectedbooks = from b in _context.Books where b.Title == title select b;
+            eBook = selectedbooks.FirstOrDefault();
                 if (eBook!=null)
                 {
                 Console.WriteLine("Change title? Y/N");
@@ -77,7 +77,7 @@ namespace ConsoleApp1
         }
         public  void BookList(User user)
         {
-            var selectedbooks = from b in Database.BorrowingList where b.User == user && b.RTime == default(DateTime) select b.Book;
+            var selectedbooks = from b in _context.Borrowings where b.User == user && b.RTime == default(DateTime) select b.Book;
             foreach (var item in selectedbooks)
             {
                 Console.WriteLine("Title: " + item.Title + " Author: " + item.Author);

@@ -8,23 +8,22 @@ namespace ConsoleApp1
     
     public class UserService : IUserService
     {
-        private Context _context;
+        private _context _context;
 
         public UserService()
         {
-            _context = new Context();
+            _context = new _context();
         }
 
         public void Borrow(string book, User user)
         {
             
-            var selectedbooks = from b in Database.mainLibrary where (b.Key.Title == book) select b;
+            var selectedbooks = from b in _context.Books where (b.Title == book) select b;
             BookI bBook;
-            bBook = selectedbooks.FirstOrDefault().Key;
+            bBook = selectedbooks.FirstOrDefault();
             if (bBook!=null)
             {
-                Database.BorrowingList.Add (new Borrowing() { User = user, Book = bBook, BTime = DateTime.Now });
-                Database.mainLibrary[bBook] = true;
+                _context.Borrowings.Add (new Borrowing() { User = user, Book = bBook, BTime = DateTime.Now });
                 Console.WriteLine("Book " + book + " successfully borrowed ");
             }
             else
@@ -35,12 +34,11 @@ namespace ConsoleApp1
         }
         public void ReturnB(string book, User user)
         {
-            var selectedbooks = from b in Database.BorrowingList where (b.Book.Title == book) select b;
+            var selectedbooks = from b in _context.Borrowings where (b.Book.Title == book) select b;
             BookI bBook;
             bBook = selectedbooks.FirstOrDefault().Book;
             if (bBook!=null)
             {
-                Database.mainLibrary[bBook] = false;
                 Console.WriteLine("Book " + book + " successfully returned ");
                 selectedbooks.First().RTime = DateTime.Now;
             }

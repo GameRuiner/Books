@@ -29,24 +29,15 @@ namespace ConsoleApp1
                 }
 
                 else if (cki == "Library books"){
-                    foreach(var item in Database.mainLibrary)
+                    foreach(var item in _context.Books)
                     {
-                        string IsBorrow;
-                        if (item.Value == false)
-                        {
-                            IsBorrow = "Available";
-                        }
-                        else
-                        {
-                            IsBorrow = "Borrowed";
-                        }
-                        Console.WriteLine("Title: "+item.Key.Title+" Author: "+item.Key.Author+" "+IsBorrow);
+                        Console.WriteLine("Title: "+item.Title+" Author: "+item.Author+" ");
                     }
                     }
                 else if (cki == "Remove"){
-                    foreach (var item in Database.mainLibrary)
+                    foreach (var item in _context.Books)
                     {
-                        Console.WriteLine("Title: " + item.Key.Title + " Author: " + item.Key.Author);
+                        Console.WriteLine("Title: " + item.Title + " Author: " + item.Author);
                     }
                     Console.WriteLine("Please choose title");
                     title = Console.ReadLine();
@@ -54,9 +45,9 @@ namespace ConsoleApp1
                     } 
                 else if (cki == "Edit")
                 {
-                    foreach (var item in Database.mainLibrary)
+                    foreach (var item in _context.Books)
                     {
-                        Console.WriteLine("Title: " + item.Key.Title + " Author: " + item.Key.Author);
+                        Console.WriteLine("Title: " + item.Title + " Author: " + item.Author);
                     }
                     Console.WriteLine("Please choose title");
                     title = Console.ReadLine();
@@ -64,7 +55,7 @@ namespace ConsoleApp1
                 }
                 else if (cki == "User list")
                 {
-                    foreach (var item in Database.userlist)
+                    foreach (var item in _context.Users)
                     {
                         Console.WriteLine(item.Name);
                     }
@@ -74,7 +65,7 @@ namespace ConsoleApp1
                     Console.WriteLine("Your login:");
                     username = Console.ReadLine();
                     user = new User(username);
-                    var selecteduser =  from u in Database.userlist where (u.Name==username) select u;
+                    var selecteduser =  from u in _context.Users where (u.Name==username) select u;
                     User users = selecteduser.FirstOrDefault();
                     if (users!=null)
                     {
@@ -83,7 +74,7 @@ namespace ConsoleApp1
                     else
                     {
                         Console.WriteLine("Welcome new user " + user.Name);
-                        Database.userlist.Add(user);
+                        _context.Users.Add(user);
                     }
                     while (true)
                     {
@@ -96,12 +87,10 @@ namespace ConsoleApp1
                         switch (cki)
                         {
                             case "Borrow":
-                                foreach (var item in Database.mainLibrary)
+                                foreach (var item in _context.Books)
                                 {
-                                    if (item.Value == false)
-                                    {
-                                        Console.WriteLine("Title: " + item.Key.Title + " Author: " + item.Key.Author);
-                                    }
+                                  Console.WriteLine("Title: " + item.Title + " Author: " + item.Author);
+                                    
                                 }
                                 Console.WriteLine("Please, enter title of book");
                                 title = Console.ReadLine();
@@ -117,25 +106,16 @@ namespace ConsoleApp1
                                 service.BookList(user);
                                 break;
                             case "Library":
-                                foreach (var item in Database.mainLibrary)
+                                foreach (var item in _context.Books)
                                 {
-                                    string IsBorrow;
-                                    if (item.Value == false)
-                                    {
-                                        IsBorrow = "Available";
-                                    }
-                                    else
-                                    {
-                                        IsBorrow = "Borrowed";
-                                    }
-                                    Console.WriteLine("Title: " + item.Key.Title + " Author: " + item.Key.Author + " " + IsBorrow);
+                                    Console.WriteLine("Title: " + item.Title + " Author: " + item.Author);
                                 }
                                 break;
                             case "User name":
                                 Console.WriteLine(user.Name);
                                 break;
                             case "Borrowing":
-                                foreach (var item in Database.BorrowingList)
+                                foreach (var item in _context.Borrowings)
                                 {
                                     if (item.User == user)
                                     {

@@ -22,21 +22,21 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public IEnumerable<User> Get()
         {
-            return Database.userlist;
+            return _context.Users;
         }
 
         // GET: api/User/5
         [HttpGet("{name}")]
         public User Get(string name)
         {
-            return Database.userlist.Where(user => user.Name == name).Select(user => user).FirstOrDefault();
+            return _context.Users.Where(user => user.Name == name).Select(user => user).FirstOrDefault();
         }
         
         // POST: api/User
         [HttpPost]
         public void Post([FromBody]User user)
         {
-            Database.userlist.Add(user);
+            _context.Users.Add(user);
         }
         
         // PUT: api/User/5
@@ -45,7 +45,7 @@ namespace WebApplication1.Controllers
         {
             User u = new ConsoleApp1.User(value);
             u.id = id;
-            Database.userlist.Add(u);
+            _context.Users.Add(u);
         }
         
         // DELETE: api/ApiWithActions/5

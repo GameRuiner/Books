@@ -21,21 +21,21 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public IEnumerable<BookI> Get()
         {
-            return Database.mainLibrary.Select(library => library.Key);
+            return _context.Books.Select(library => library);
         }
 
         // GET api/values/5
         [HttpGet("{name}")]
         public BookI Get(string name)
         {
-            return Database.mainLibrary.Where( book => book.Key.Title == name).Select(book => book.Key).FirstOrDefault();
+            return _context.Books.Where( book => book.Title == name).Select(book => book).FirstOrDefault();
         }
 
         // POST api/values
         [HttpPost]
         public void Post([FromBody]BookI book)
         {
-            Database.mainLibrary.Add(book, false);
+            _context.Books.Add(book);
         }
 
         // PUT api/values/5
@@ -51,4 +51,5 @@ namespace WebApplication1.Controllers
             bookService.RemoveB(title);
         }
     }
-    }
+
+}
