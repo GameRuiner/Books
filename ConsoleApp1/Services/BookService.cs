@@ -7,18 +7,19 @@ namespace ConsoleApp1
 {
     public class BookService : IBookService
     {
-        private _context _context;
+        private Context _context;
 
         public BookService()
         {
-            _context = new _context();
+            _context = new Context();
         }
 
         public void AddB(string title, string author)
         {
             BookI book = new BookI(title, author);
             _context.Books.Add(book);
-            
+            _context.SaveChanges();
+
         }
         public void RemoveB(string title)
         {
@@ -28,6 +29,7 @@ namespace ConsoleApp1
             if (rBook!=null)
             {
                 _context.Books.Remove(rBook);
+                _context.SaveChanges();
             }
             else
             {
@@ -68,8 +70,9 @@ namespace ConsoleApp1
                         newAuthor = Console.ReadLine();
                         eBook.Author = newAuthor;
                     }
+                _context.SaveChanges();
 
-                }
+            }
             else
             {
                 Console.WriteLine("Library doesn't have book "+ title);

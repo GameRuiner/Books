@@ -10,7 +10,7 @@ using System;
 
 namespace ConsoleApp1.Migrations
 {
-    [DbContext(typeof(_context))]
+    [DbContext(typeof(Context))]
     [Migration("20180323151803_init")]
     partial class init
     {

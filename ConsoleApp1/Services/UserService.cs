@@ -8,11 +8,11 @@ namespace ConsoleApp1
     
     public class UserService : IUserService
     {
-        private _context _context;
+        private Context _context;
 
         public UserService()
         {
-            _context = new _context();
+            _context = new Context();
         }
 
         public void Borrow(string book, User user)
@@ -25,6 +25,7 @@ namespace ConsoleApp1
             {
                 _context.Borrowings.Add (new Borrowing() { User = user, Book = bBook, BTime = DateTime.Now });
                 Console.WriteLine("Book " + book + " successfully borrowed ");
+                _context.SaveChanges();
             }
             else
             {
@@ -41,6 +42,7 @@ namespace ConsoleApp1
             {
                 Console.WriteLine("Book " + book + " successfully returned ");
                 selectedbooks.First().RTime = DateTime.Now;
+                _context.SaveChanges();
             }
             else
             {

@@ -14,7 +14,8 @@ namespace ConsoleApp1
             String cki,title,author,username;
             User user;
             UserService userservice = new UserService();
-            var service = new BookService();
+            BookService service = new BookService();
+            Context _context = new Context();
 
             Console.WriteLine("Welcome to library");
             do

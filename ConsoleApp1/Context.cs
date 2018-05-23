@@ -5,15 +5,15 @@ using System.Text;
 
 namespace ConsoleApp1
 {
-    public class _context : DbContext
+    public class Context : DbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=Books;Trusted_Connection=True;");
         }
 
-        public static DbSet<BookI> Books { get; set; }
-        public static DbSet<Borrowing> Borrowings { get; set; }
-        public static DbSet<User> Users { get; set; }
+        public  DbSet<BookI> Books { get; set; }
+        public DbSet<Borrowing> Borrowings { get; set; }
+        public  DbSet<User> Users { get; set; }
     }
 }

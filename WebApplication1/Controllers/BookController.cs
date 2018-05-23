@@ -12,6 +12,7 @@ namespace WebApplication1.Controllers
     public class BookController : Controller
     {
         private BookService bookService;
+        Context _context = new Context();
 
         public BookController()
         {

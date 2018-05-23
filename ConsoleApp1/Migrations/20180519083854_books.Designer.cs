@@ -8,7 +8,7 @@ using System;
 
 namespace ConsoleApp1.Migrations
 {
-    [DbContext(typeof(_context))]
+    [DbContext(typeof(Context))]
     [Migration("20180519083854_books")]
     partial class books
     {

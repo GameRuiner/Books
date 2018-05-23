@@ -8,7 +8,7 @@ using System;
 
 namespace ConsoleApp1.Migrations
 {
-    [DbContext(typeof(_context))]
+    [DbContext(typeof(Context))]
     partial class ContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

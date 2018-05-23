@@ -13,6 +13,7 @@ namespace WebApplication1.Controllers
     public class UserController : Controller
     {
         private UserService userService;
+        private Context _context = new Context();
 
         public UserController()
         {
