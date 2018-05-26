@@ -17,7 +17,7 @@ namespace WebApplication1.Controllers
 
         public UserController()
         {
-            userService = new UserService();
+            userService = new UserService(_context);
         }
         // GET: api/User
         [HttpGet]
@@ -38,6 +38,7 @@ namespace WebApplication1.Controllers
         public void Post([FromBody]User user)
         {
             _context.Users.Add(user);
+            _context.SaveChanges();
         }
         
         // PUT: api/User/5

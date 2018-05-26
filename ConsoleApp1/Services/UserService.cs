@@ -10,9 +10,9 @@ namespace ConsoleApp1
     {
         private Context _context;
 
-        public UserService()
+        public UserService(Context context)
         {
-            _context = new Context();
+            _context = context;
         }
 
         public void Borrow(string book, User user)

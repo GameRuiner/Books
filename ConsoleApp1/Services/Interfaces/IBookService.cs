@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ConsoleApp1
 {
-    interface IBookService
+    public interface IBookService
     {
         void AddB(string title, string author);
 

@@ -13,9 +13,10 @@ namespace ConsoleApp1
             //context.Database.Initialize(true);
             String cki,title,author,username;
             User user;
-            UserService userservice = new UserService();
-            BookService service = new BookService();
             Context _context = new Context();
+            UserService userservice = new UserService(_context);
+
+            BookService service = new BookService(_context);
 
             Console.WriteLine("Welcome to library");
             do

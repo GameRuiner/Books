@@ -9,9 +9,9 @@ namespace ConsoleApp1
     {
         private Context _context;
 
-        public BookService()
+        public BookService(Context context)
         {
-            _context = new Context();
+            _context = context;
         }
 
         public void AddB(string title, string author)
@@ -39,6 +39,11 @@ namespace ConsoleApp1
         }
         public void EditB(string title)
         {
+            //var book = new BookI();
+            //var entity = _context.Entry<BookI>(book);
+            //entity.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            //_context.SaveChanges();
+
             string com, newTitle, newAuthor;
             BookI eBook;
             var selectedbooks = from b in _context.Books where b.Title == title select b;

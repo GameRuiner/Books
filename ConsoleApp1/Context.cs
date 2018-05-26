@@ -9,7 +9,7 @@ namespace ConsoleApp1
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=Books;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=Books4;Trusted_Connection=True;");
         }
 
         public  DbSet<BookI> Books { get; set; }

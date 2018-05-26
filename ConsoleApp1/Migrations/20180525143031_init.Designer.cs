@@ -11,7 +11,7 @@ using System;
 namespace ConsoleApp1.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20180323151803_init")]
+    [Migration("20180525143031_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -61,6 +61,8 @@ namespace ConsoleApp1.Migrations
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
 
                     b.HasKey("id");
 

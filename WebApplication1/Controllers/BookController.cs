@@ -11,17 +11,19 @@ namespace WebApplication1.Controllers
     [Route("api/books")]
     public class BookController : Controller
     {
-        private BookService bookService;
-        Context _context = new Context();
+        private IBookService _bookService;
+        Context _context;
 
-        public BookController()
+        public BookController(IBookService bookService)
         {
-            bookService = new BookService();
+            _bookService = bookService;
+            _context = new Context();
         }
         // GET api/values
         [HttpGet]
         public IEnumerable<BookI> Get()
         {
+            //return bookService.BookList();
             return _context.Books.Select(library => library);
         }
 
@@ -36,7 +38,10 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public void Post([FromBody]BookI book)
         {
-            _context.Books.Add(book);
+            //_context.Books.Add(book);
+            //_context.SaveChanges();
+
+            _bookService.AddB(book.Title, book.Author);
         }
 
         // PUT api/values/5
@@ -49,7 +54,7 @@ namespace WebApplication1.Controllers
         [HttpDelete("{title}")]
         public void Delete(String title)
         {
-            bookService.RemoveB(title);
+            _bookService.RemoveB(title);
         }
     }
 
