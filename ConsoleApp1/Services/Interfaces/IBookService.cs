@@ -6,6 +6,8 @@ namespace ConsoleApp1
 {
     public interface IBookService
     {
+        IEnumerable<BookI> Library();
+
         void AddB(string title, string author);
 
         void RemoveB(string title);

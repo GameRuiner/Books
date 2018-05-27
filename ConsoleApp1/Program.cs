@@ -31,10 +31,8 @@ namespace ConsoleApp1
                 }
 
                 else if (cki == "Library books"){
-                    foreach(var item in _context.Books)
-                    {
-                        Console.WriteLine("Title: "+item.Title+" Author: "+item.Author+" ");
-                    }
+                    IEnumerable<BookI> books = service.Library();
+                   Console.WriteLine(books);
                     }
                 else if (cki == "Remove"){
                     foreach (var item in _context.Books)

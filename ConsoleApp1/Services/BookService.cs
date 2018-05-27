@@ -14,6 +14,14 @@ namespace ConsoleApp1
             _context = context;
         }
 
+        public IEnumerable<BookI>  Library()
+        {
+            // return _context.Books.Select(library => library);
+            return _context.Books.Select(library => library);
+            
+                
+        }
+
         public void AddB(string title, string author)
         {
             BookI book = new BookI(title, author);

@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using ConsoleApp1;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApplication1
 {
@@ -29,6 +30,7 @@ namespace WebApplication1
 
             var context = new Context();
             context.Database.EnsureCreated();
+
 
             services.AddMvc();
         }

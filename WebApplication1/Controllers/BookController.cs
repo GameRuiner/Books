@@ -23,7 +23,8 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public IEnumerable<BookI> Get()
         {
-            //return bookService.BookList();
+           // return  _bookService.Library();
+
             return _context.Books.Select(library => library);
         }
 
@@ -38,10 +39,10 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public void Post([FromBody]BookI book)
         {
-            //_context.Books.Add(book);
-            //_context.SaveChanges();
+            _context.Books.Add(book);
+            _context.SaveChanges();
 
-            _bookService.AddB(book.Title, book.Author);
+          //  _bookService.AddB(book.Title, book.Author);
         }
 
         // PUT api/values/5
