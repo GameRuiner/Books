@@ -64,7 +64,10 @@ namespace ConsoleApp1
                 {
                     Console.WriteLine("Your login:");
                     username = Console.ReadLine();
-                    user = new User(username);
+                    user = new User { 
+                        Name = username
+                                    };
+                    
                     var selecteduser =  from u in _context.Users where (u.Name==username) select u;
                     User users = selecteduser.FirstOrDefault();
                     if (users!=null)
@@ -97,13 +100,13 @@ namespace ConsoleApp1
                                 userservice.Borrow(title,user);
                                 break;
                             case "Return":
-                                service.BookList(user);
+                                userservice.BookList(user);
                                 Console.WriteLine("Please, enter title of book");
                                 title = Console.ReadLine();
                                 userservice.ReturnB(title,user);
                                 break;
                             case "My books":
-                                service.BookList(user);
+                                userservice.BookList(user);
                                 break;
                             case "Library":
                                 foreach (var item in _context.Books)

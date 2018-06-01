@@ -14,6 +14,5 @@ namespace ConsoleApp1
 
         void EditB(string title);
 
-        void BookList(User user);
     }
 }

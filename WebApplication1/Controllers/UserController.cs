@@ -45,8 +45,9 @@ namespace WebApplication1.Controllers
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]string value)
         {
-            User u = new ConsoleApp1.User(value);
+            User u = new User();
             u.id = id;
+            u.Name = value;
             _context.Users.Add(u);
         }
         

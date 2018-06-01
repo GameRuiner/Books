@@ -5,17 +5,16 @@ using System.Text;
 
 namespace ConsoleApp1
 {
-    public class BookI //: DbContext
+    public class BookI 
     {
         [Key]
         public int id { get; set; } 
         public string Title { get; set; }
         public string Description { get; set; }
         public string Author { get; set; }
-        public BookI(string nm, string au)
+        public Boolean Borrowed { get; set; }
+        public BookI()
         {
-            Title = nm;
-            Author = au;
         }
     }
 }

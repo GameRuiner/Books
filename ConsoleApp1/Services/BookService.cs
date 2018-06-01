@@ -16,15 +16,17 @@ namespace ConsoleApp1
 
         public IEnumerable<BookI>  Library()
         {
-            // return _context.Books.Select(library => library);
-            return _context.Books.Select(library => library);
-            
+            var selectedbooks = from b in _context.Books where b.Borrowed == false select b;
+            return selectedbooks.ToList();
                 
         }
 
         public void AddB(string title, string author)
         {
-            BookI book = new BookI(title, author);
+            BookI book = new BookI{
+                Author = author,
+                Title = title,
+                Borrowed = false};
             _context.Books.Add(book);
             _context.SaveChanges();
 
@@ -91,13 +93,6 @@ namespace ConsoleApp1
                 Console.WriteLine("Library doesn't have book "+ title);
             }
         }
-        public  void BookList(User user)
-        {
-            var selectedbooks = from b in _context.Borrowings where b.User == user && b.RTime == default(DateTime) select b.Book;
-            foreach (var item in selectedbooks)
-            {
-                Console.WriteLine("Title: " + item.Title + " Author: " + item.Author);
-            }
-        }
+
     }
 }

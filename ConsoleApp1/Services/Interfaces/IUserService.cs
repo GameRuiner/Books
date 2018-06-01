@@ -9,5 +9,7 @@ namespace ConsoleApp1
         void Borrow(string book, User user);
 
         void ReturnB(string book, User user);
+
+        void BookList(User user);
     }
 }

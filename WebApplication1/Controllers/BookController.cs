@@ -23,9 +23,7 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public IEnumerable<BookI> Get()
         {
-           // return  _bookService.Library();
-
-            return _context.Books.Select(library => library);
+            return  _bookService.Library();
         }
 
         // GET api/values/5
@@ -53,7 +51,7 @@ namespace WebApplication1.Controllers
 
         // DELETE api/values/5
         [HttpDelete("{title}")]
-        public void Delete(String title)
+        public void Delete(string title)
         {
             _bookService.RemoveB(title);
         }

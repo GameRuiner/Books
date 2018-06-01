@@ -23,6 +23,7 @@ namespace ConsoleApp1
             bBook = selectedbooks.FirstOrDefault();
             if (bBook!=null)
             {
+                bBook.Borrowed = false;
                 _context.Borrowings.Add (new Borrowing() { User = user, Book = bBook, BTime = DateTime.Now });
                 Console.WriteLine("Book " + book + " successfully borrowed ");
                 _context.SaveChanges();
@@ -40,6 +41,7 @@ namespace ConsoleApp1
             bBook = selectedbooks.FirstOrDefault().Book;
             if (bBook!=null)
             {
+                bBook.Borrowed = true;
                 Console.WriteLine("Book " + book + " successfully returned ");
                 selectedbooks.First().RTime = DateTime.Now;
                 _context.SaveChanges();
@@ -49,6 +51,15 @@ namespace ConsoleApp1
                 Console.WriteLine("You don't have " + book);
             }
            
+        }
+
+        public void BookList(User user)
+        {
+            var selectedbooks = from b in _context.Borrowings where b.User == user && b.RTime == default(DateTime) select b.Book;
+            foreach (var item in selectedbooks)
+            {
+                Console.WriteLine("Title: " + item.Title + " Author: " + item.Author);
+            }
         }
     }
 }

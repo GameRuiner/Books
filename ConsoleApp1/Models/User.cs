@@ -10,9 +10,8 @@ namespace ConsoleApp1
         [Key]
         public int id { get; set; }
         public string Name { get; set; }
-        public User(string nm)
+        public User()
         {
-            Name = nm;
         }
     }
 }
