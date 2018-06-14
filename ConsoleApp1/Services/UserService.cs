@@ -17,13 +17,13 @@ namespace ConsoleApp1
 
         public void Borrow(string book, User user)
         {
-            
-            var selectedbooks = from b in _context.Books where (b.Title == book) select b;
+
+            var selectedbooks = from b in _context.Books where b.Title == book && b.Borrowed == false select b;
             BookI bBook;
             bBook = selectedbooks.FirstOrDefault();
             if (bBook!=null)
             {
-                bBook.Borrowed = false;
+                bBook.Borrowed = true;
                 _context.Borrowings.Add (new Borrowing() { User = user, Book = bBook, BTime = DateTime.Now });
                 Console.WriteLine("Book " + book + " successfully borrowed ");
                 _context.SaveChanges();
@@ -36,12 +36,12 @@ namespace ConsoleApp1
         }
         public void ReturnB(string book, User user)
         {
-            var selectedbooks = from b in _context.Borrowings where (b.Book.Title == book) select b;
-            BookI bBook;
-            bBook = selectedbooks.FirstOrDefault().Book;
-            if (bBook!=null)
+            var selectedbooks = from b in _context.Borrowings where b.Book.Title == book  &&  b.RTime == default(DateTime) select b;
+            var bBooks = selectedbooks.FirstOrDefault();
+            if (bBooks!=null)
             {
-                bBook.Borrowed = true;
+                BookI bBook = bBooks.Book;
+                bBook.Borrowed = false;
                 Console.WriteLine("Book " + book + " successfully returned ");
                 selectedbooks.First().RTime = DateTime.Now;
                 _context.SaveChanges();

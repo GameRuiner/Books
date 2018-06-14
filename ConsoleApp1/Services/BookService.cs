@@ -36,10 +36,17 @@ namespace ConsoleApp1
             BookI rBook;
             var selectedbooks = from b in _context.Books where b.Title == title  select b;
             rBook = selectedbooks.FirstOrDefault();
+
             if (rBook!=null)
-            {
+            { 
+                var blist = from b in _context.Borrowings where b.BookId == rBook.id select b;
+                foreach ( var item in blist.ToList())
+                {
+                    _context.Borrowings.Remove(item);
+                }
                 _context.Books.Remove(rBook);
                 _context.SaveChanges();
+                Console.WriteLine("Book removed " + title);
             }
             else
             {
@@ -56,7 +63,7 @@ namespace ConsoleApp1
 
             string com, newTitle, newAuthor;
             BookI eBook;
-            var selectedbooks = from b in _context.Books where b.Title == title select b;
+            var selectedbooks = from b in _context.Books where b.Title == title && b.Borrowed == false select b;
             eBook = selectedbooks.FirstOrDefault();
                 if (eBook!=null)
                 {

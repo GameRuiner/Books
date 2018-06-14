@@ -32,10 +32,17 @@ namespace ConsoleApp1
 
                 else if (cki == "Library books"){
                     IEnumerable<BookI> books = service.Library();
-                   Console.WriteLine(books);
+                    foreach (var book in books) {
+                        Console.WriteLine("Title: "+book.Title+", "+ "Author: " + book.Author); }
                     }
+
+                else if (cki == "Help")
+                {
+                    Console.WriteLine("Add, Remove, Edit, User list, Library books, Login");
+                }
                 else if (cki == "Remove"){
-                    foreach (var item in _context.Books)
+                    IEnumerable<BookI> books = service.Library();
+                    foreach (var item in books)
                     {
                         Console.WriteLine("Title: " + item.Title + " Author: " + item.Author);
                     }
@@ -45,7 +52,8 @@ namespace ConsoleApp1
                     } 
                 else if (cki == "Edit")
                 {
-                    foreach (var item in _context.Books)
+                    IEnumerable<BookI> books = service.Library();
+                    foreach (var item in books)
                     {
                         Console.WriteLine("Title: " + item.Title + " Author: " + item.Author);
                     }
@@ -64,18 +72,22 @@ namespace ConsoleApp1
                 {
                     Console.WriteLine("Your login:");
                     username = Console.ReadLine();
-                    user = new User { 
-                        Name = username
-                                    };
                     
+
+
                     var selecteduser =  from u in _context.Users where (u.Name==username) select u;
                     User users = selecteduser.FirstOrDefault();
-                    if (users!=null)
+                    if (users != null)
                     {
-                        Console.WriteLine("Welcome back " + user.Name);
+                        Console.WriteLine("Welcome back " + users.Name);
+                        user = users;
                     }
                     else
                     {
+                        user = new User
+                        {
+                            Name = username
+                        };
                         Console.WriteLine("Welcome new user " + user.Name);
                         _context.Users.Add(user);
                     }
@@ -92,8 +104,10 @@ namespace ConsoleApp1
                             case "Borrow":
                                 foreach (var item in _context.Books)
                                 {
-                                  Console.WriteLine("Title: " + item.Title + " Author: " + item.Author);
-                                    
+                                    if (item.Borrowed == false)
+                                    {
+                                        Console.WriteLine("Title: " + item.Title + " Author: " + item.Author);
+                                    }
                                 }
                                 Console.WriteLine("Please, enter title of book");
                                 title = Console.ReadLine();
@@ -135,6 +149,9 @@ namespace ConsoleApp1
                                     }
 
                                 }
+                                break;
+                            case "Help":
+                                Console.WriteLine("Borrowing, User name, Library, My books, Return, Borrow, Logout");
                                 break;
                             default:
                                 Console.WriteLine("Unknown user command");
